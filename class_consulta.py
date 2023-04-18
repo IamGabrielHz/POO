@@ -4,43 +4,40 @@ import calendar
 
 
 class consulta:
-    paciente = None
-    medico = None
-    data = None
-    valor = None
-    paga = None
-
-
-    def __init__(self,paciente,medico,data,valor,paga):
-        self.paciente = paciente
-        self.medico = medico
-        self.data = data
-        self.valor = valor
-        self.paga = paga
-
+    def __init__(self,paciente: str,medico: str,data: str,valor: float,paga: bool):
+        self.__paciente = paciente
+        self.__medico = medico
+        self.__data = data
+        self.__valor = valor
+        self.__paga = paga
+        
 
     def __str__(self):
-        return f'Paciente : {self.paciente}\t Médico = {self.medico}\t Data = {self.data}\t Valor = {self.valor}\t Situação = {self.paga}'
+        return f'Paciente : {self.__paciente}\t Médico = {self.__medico}\t Data = {self.__data}\t Valor = {self.__valor}\t Situação = {self.__paga}'
+    
+    @property
+    def paciente(self):
+        return self.__paciente
+    
 
+    @paciente.setter
+    def paciente(self, paciente):
+        self.__paciente = paciente
 
-def aleatory_date():
-    hoje = datetime.date.today()
-    ultimo_dia_mes = calendar.monthrange(hoje.year, hoje.month)[1]
-    data_aleatoria = hoje + datetime.timedelta(days=random.randint(0, ultimo_dia_mes))
-    return data_aleatoria
+    
+    @property
+    def medico(self):
+        return self.__medico
+    
 
-
-def plusmonth(agendamento):
-    if agendamento.month == 12:
-        agendamento = agendamento.replace(year=agendamento.year+1, month=1)
-    else:
-        agendamento = agendamento.replace(month=agendamento.month+1)
-    return agendamento
+    @medico.setter
+    def medico(self,medico):
+        print('Sem permissão')
 
 
 def relatorio_medicos(Consultas):
     agora = datetime.date.today()
-    Consultas_mes_atual = [consulta for consulta in Consultas if consulta.data.month == agora.month]
+    Consultas_mes_atual = [consulta for consulta in Consultas if consulta.__data.month == agora.month]
     quantidade_por_medico = {}
     for objeto in Consultas_mes_atual:
         medico = objeto.medico
